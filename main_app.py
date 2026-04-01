@@ -56,10 +56,12 @@ if uploaded_file:
         else:
             with st.spinner("🤖 AI Brain is analyzing your data... please wait..."):
                 # Combine all rows of feedback into one big paragraph for the AI
-                all_text = " ".join(df[target_column].astype(str).tolist())
+                # Get the selected column as a list of strings
+                           feedback_list = df[target_column].dropna().astype(str).tolist()
+                           all_text = " ".join(feedback_list)
                 
                 # The "Prompt" (Instructions we give to the AI)
-                prompt = f"""
+            prompt = f"""
                 You are a Friendly Event Mentor. Your goal is to help a college club student understand their event feedback easily.
                 
                 EVENT NAME: {event_name}
@@ -80,7 +82,7 @@ if uploaded_file:
                    *Note: Use simple words. If there is no feedback data, just say 'Please upload feedback to see the magic!'*
                 """
                 
-                try:
+            try:
                     model = genai.GenerativeModel('gemini-2.5-flash')
                     response = model.generate_content(prompt)
                     
@@ -89,7 +91,7 @@ if uploaded_file:
                     st.markdown(response.text)
                     st.balloons()
                     
-                except Exception as e:
+            except Exception as e:
                     st.error(f"Something went wrong with the AI: {e}")
 
 # FOOTER
