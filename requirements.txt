@@ -1,0 +1,9 @@
+streamlit
+google-generativeai
+pandas
+python-dotenv
+openpyxlstreamlit
+google-generativeai
+pandas
+python-dotenv
+openpyxl
